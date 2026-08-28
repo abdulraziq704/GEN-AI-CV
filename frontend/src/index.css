@@ -1,0 +1,131 @@
+@import "tailwindcss";
+
+/*
+  Makes the `dark:` variant respond to a ".dark" class on <html>
+  instead of the OS prefers-color-scheme setting. This is the one
+  line that makes ThemeProvider's toggle actually do something.
+*/
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+  THEME TOKENS — Tailwind v4, CSS-first config
+  -------------------------------------------------------------
+  @theme registers each --color-* / --font-* / --radius-* / --shadow-*
+  variable as a real design token, which is what makes classes like
+  bg-primary, text-foreground, rounded-2xl, shadow-card exist at all.
+
+  Each color token just points at a plain CSS variable (--background,
+  --primary, etc). Those plain variables hold the actual HSL values,
+  defined once for light in :root and once for dark in .dark below.
+  Retheme the whole app by editing ONLY the :root / .dark blocks.
+*/
+
+@theme {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+
+  --color-surface: hsl(var(--surface));
+  --color-surface-foreground: hsl(var(--surface-foreground));
+
+  --color-primary: hsl(var(--primary));
+  --color-primary-hover: hsl(var(--primary-hover));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+
+  --color-border: hsl(var(--border));
+  --color-ring: hsl(var(--ring));
+
+  --color-success: hsl(var(--success));
+  --color-success-foreground: hsl(var(--success-foreground));
+
+  --color-warning: hsl(var(--warning));
+  --color-warning-foreground: hsl(var(--warning-foreground));
+
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+
+  --color-tertiary: hsl(var(--tertiary));
+  --color-tertiary-foreground: hsl(var(--tertiary-foreground));
+
+  --font-sans: Inter, system-ui, sans-serif;
+
+  --radius-xl: 0.875rem;
+  --radius-2xl: 1.25rem;
+
+  --shadow-card: 0 1px 2px 0 rgb(0 0 0 / 0.04), 0 4px 10px -2px rgb(0 0 0 / 0.06);
+}
+
+:root {
+  --background: 0 0% 100%;          /* Pure White */
+  --foreground: 0 0% 10%;           /* Near Black */
+
+  --surface: 0 0% 100%;
+  --surface-foreground: 0 0% 10%;
+
+  --primary: 0 0% 9%;               /* Black buttons in light mode */
+  --primary-hover: 0 0% 15%;
+  --primary-foreground: 0 0% 98%;
+
+  --muted: 0 0% 96%;
+  --muted-foreground: 0 0% 45%;
+
+  --accent: 0 0% 94%;
+  --accent-foreground: 0 0% 15%;
+
+  --border: 0 0% 90%;
+  --ring: 0 0% 9%;
+
+  --success: 152 60% 42%;
+  --success-foreground: 0 0% 100%;
+  --warning: 38 92% 50%;
+  --warning-foreground: 0 0% 10%;
+  --destructive: 0 72% 51%;
+  --destructive-foreground: 0 0% 100%;
+  --tertiary: 262 55% 47%;
+  --tertiary-foreground: 0 0% 100%;
+}
+
+.dark {
+  --background: 0 0% 2%;            /* Almost pure black */
+  --foreground: 0 0% 93%;           /* Very light gray */
+
+  --surface: 0 0% 6%;               /* Just off-black */
+  --surface-foreground: 0 0% 93%;
+
+  --primary: 0 0% 98%;              /* White buttons in dark mode */
+  --primary-hover: 0 0% 90%;
+  --primary-foreground: 0 0% 9%;
+
+  --muted: 0 0% 12%;
+  --muted-foreground: 0 0% 65%;
+
+  --accent: 0 0% 15%;
+  --accent-foreground: 0 0% 90%;
+
+  --border: 0 0% 14%;
+  --ring: 0 0% 98%;
+
+  --success: 152 50% 50%;
+  --success-foreground: 0 0% 2%;
+  --warning: 38 85% 58%;
+  --warning-foreground: 0 0% 2%;
+  --destructive: 0 72% 55%;
+  --destructive-foreground: 0 0% 98%;
+  --tertiary: 262 65% 72%;
+  --tertiary-foreground: 0 0% 2%;
+}
+
+@layer base {
+  * {
+    border-color: hsl(var(--border));
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+}
