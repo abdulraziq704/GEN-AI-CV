@@ -18,15 +18,20 @@ process.on("unhandledRejection", (reason) => {
 });
 dotenv.config();
 
+const allowedOrigins = [
+  "http://localhost:5173",
+  process.env.FRONTEND_URL,
+].filter(Boolean);
+
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: allowedOrigins,
     credentials: true,
-  }),
+  })
 );
 app.use(
   clerkMiddleware({
-    authorizedParties: ["http://localhost:5173"],
+    authorizedParties:allowedOrigins,
   })
 );
 app.use(express.json());
@@ -39,7 +44,7 @@ console.log("KEY LOADED:", !!process.env.GEMINI_API_KEY);
 console.log("CLERK SECRET LOADED:", !!process.env.CLERK_SECRET_KEY); // 👈 ye add karo
 // AIresponse();
 
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 app.get("/", (req, res) => res.send("Hello World!"));
 
